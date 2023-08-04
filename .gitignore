@@ -1,0 +1,38 @@
+# Laravel
+/vendor/
+/node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment
+.env
+.env.backup
+.env.production
+
+# Storage
+/storage/*.key
+/storage/logs/*
+!/storage/logs/.gitkeep
+
+# Bootstrap cache
+/bootstrap/cache/*
+!/bootstrap/cache/.gitkeep
+!/bootstrap/cache/packages.php
+!/bootstrap/cache/services.php
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Compiled
+*.cache
+*.lock
+
+# Vendor

@@ -1,48 +1,93 @@
-# Curso de Introdução ao [Laravel](https://laravel.com/) (5.3) - [GuiaCódigo](https://www.udemy.com/course/introducao-ao-laravel-53/)
+# Curso de Introdução ao Laravel 5.3
 
-* Instalar e configurar um projeto com Laravel
-* Trabalhar com Rotas do Laravel
-* Implementar com *Blade*
-* Trabalhar com Migrações
-* Criar registros com *Tinker*
-* Realizar um CRUD com Laravel
-* Implementar um sistema de *Login* com Laravel
+> Projeto do curso [GuiaCódigo - Introdução ao Laravel 5.3](https://www.udemy.com/course/introducao-ao-laravel-53/)
 
-###  Requisitos:
-  * PHP >= 5.6.4
-  * OpenSSL PHP *Extension*
-  * PDO PHP *Extension*
-  * Mbstring PHP *Extension*
-  * Tokenizer PHP *Extension*
-  
-###  Instalação do [Composer](https://getcomposer.org/)
-  O *Composer* é um gerenciador de bibliotecas PHP, e será usando para configuração dos projetos.
-  Para instalação do *Composer* use:
+Este projeto aborda os fundamentos do Laravel 5.3, cobrindo desde a instalação até a implementação de um sistema de login completo.
 
-  > sudo apt install composer
-  
-  ###  Criando Novo Projeto
-  Para iniciar um novo projeto usando o *Composer*, no seu diretório de preferência, use:
-  
-  > composer create-project --prefer-dist laravel/laravel [nome_do_projeto] [versão_do_laravel*]
-  
-  *A versão do lavarel é opcional.
-  
-  ###  Rodando Servidor PHP
-  Para iniciar o servidor local PHP sem a necessidade de download de um servidor Apache, entre no diretório que foi criado com as dependência do laravel e use:
-  
-  > php artisan serve 
-  
-  Assim que executar esse comando será informado o local e a porta em que o servidor está rodando.
-  
-  
-  ### Comandos PHP
- 
-  Para criar uma Controller:
-  > php artisan make:controller [nome_da_controller]
-  
-  Para criar um modelo: 
-  >php artisan make:model [nome_do_model]
-  
-  Para criar uma nova Classe Seeder:
- >php artisan make:seeder
+## Tópicos Estudados
+
+- Instalação e configuração de um projeto Laravel
+- Rotas do Laravel
+- Template Engine Blade
+- Migrações de banco de dados
+- Tinker para criação de registros
+- CRUD completo
+- Sistema de autenticação/login
+
+## Requisitos
+
+- PHP >= 5.6.4
+- Extensões PHP: OpenSSL, PDO, Mbstring, Tokenizer
+- [Composer](https://getcomposer.org/)
+
+## Instalação
+
+1. Clone o repositório:
+```bash
+git clone <url-do-repositorio>
+cd learning-laravel
+```
+
+2. Instale as dependências:
+```bash
+composer install
+```
+
+3. Copie o arquivo de ambiente:
+```bash
+cp .env.example .env
+```
+
+4. Gere a chave da aplicação:
+```bash
+php artisan key:generate
+```
+
+5. Execute as migrações:
+```bash
+php artisan migrate
+```
+
+6. Inicie o servidor:
+```bash
+php artisan serve
+```
+
+## Comandos Artisan
+
+```bash
+# Criar Controller
+php artisan make:controller NomeController
+
+# Criar Model
+php artisan make:model NomeModel
+
+# Criar Seeder
+php artisan make:seeder NomeSeeder
+
+# Criar Migration
+php artisan make:migration create_nome_table
+
+# Rodar migrações
+php artisan migrate
+
+# Criar chave da aplicação
+php artisan key:generate
+
+# Acessar Tinker (CLI interativo)
+php artisan tinker
+```
+
+## Estrutura do Projeto
+
+```
+├── app/           # Código da aplicação (Controllers, Models, etc.)
+├── bootstrap/     # Inicialização da aplicação
+├── config/        # Arquivos de configuração
+├── database/      # Migrações e Seeders
+├── public/        # Arquivos públicos (CSS, JS, index.php)
+├── resources/     # Views e assets
+├── routes/        # Definição de rotas
+├── storage/       # Arquivos cache e logs
+└── tests/         # Testes automatizados
+```
