@@ -24,10 +24,14 @@
               <td>{{ $registro->titulo }}</td>
               <td>{{ $registro->descricao }}</td>
               <td><img height="60" src="{{asset($registro->imagem)}}" alt="{{ $registro->titulo }}" /></td>
-              <td>{{ $registro->publicado }}</td>
+              <td>{{ $registro->publicado ? 'Sim' : 'Não' }}</td>
               <td>
-                <a class="btn deep-orange" href="{{ route('admin.cursos.editar',$registro->id) }}">Editar</a>
-                <a class="btn red" href="{{ route('admin.cursos.deletar',$registro->id) }}">Deletar</a>
+                <a class="btn deep-orange" href="{{ route('admin.cursos.editar', $registro->id) }}">Editar</a>
+                <form action="{{ route('admin.cursos.deletar', $registro->id) }}" method="post" style="display:inline-block;">
+                  {{ csrf_field() }}
+                  <input type="hidden" name="_method" value="DELETE">
+                  <button type="submit" class="btn red" onclick="return confirm('Confirma a exclusão?')">Deletar</button>
+                </form>
               </td>
             </tr>
           @endforeach
@@ -36,12 +40,6 @@
     </div>
     <div class="row">
       <a class="btn blue" href="{{ route('admin.cursos.adicionar') }}">Adicionar</a>
-
     </div>
-
   </div>
-
-
-
-
 @endsection

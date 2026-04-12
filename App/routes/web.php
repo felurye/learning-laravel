@@ -11,27 +11,21 @@
 |
 */
 
+Route::get('/', 'Site\HomeController@index')->name('site.home');
 
-Route::get('/',['as'=>'site.home','uses'=>'Site\HomeController@index']);
+Route::get('/login', 'Site\LoginController@index')->name('site.login');
+Route::get('/login/sair', 'Site\LoginController@sair')->name('site.login.sair');
+Route::post('/login/entrar', 'Site\LoginController@entrar')->name('site.login.entrar');
 
-Route::get('/login',['as'=>'site.login','uses'=>'Site\LoginController@index']);
-Route::get('/login/sair',['as'=>'site.login.sair','uses'=>'Site\LoginController@sair']);
-Route::post('/login/entrar',['as'=>'site.login.entrar','uses'=>'Site\LoginController@entrar']);
+Route::get('/contato/{id?}', 'ContatoController@index');
+Route::post('/contato', 'ContatoController@criar');
+Route::put('/contato', 'ContatoController@editar');
 
-Route::get('/contato/{id?}',['uses'=>'ContatoController@index']);
-
-Route::post('/contato',['uses'=>'ContatoController@criar']);
-
-Route::put('/contato',['uses'=>'ContatoController@editar']);
-
-
-Route::group(['middleware'=>'auth'],function(){
-
-  Route::get('/admin/cursos',['as'=>'admin.cursos','uses'=>'Admin\CursoController@index']);
-  Route::get('/admin/cursos/adicionar',['as'=>'admin.cursos.adicionar','uses'=>'Admin\CursoController@adicionar']);
-  Route::post('/admin/cursos/salvar',['as'=>'admin.cursos.salvar','uses'=>'Admin\CursoController@salvar']);
-  Route::get('/admin/cursos/editar/{id}',['as'=>'admin.cursos.editar','uses'=>'Admin\CursoController@editar']);
-  Route::put('/admin/cursos/atualizar/{id}',['as'=>'admin.cursos.atualizar','uses'=>'Admin\CursoController@atualizar']);
-  Route::get('/admin/cursos/deletar/{id}',['as'=>'admin.cursos.deletar','uses'=>'Admin\CursoController@deletar']);
-
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/admin/cursos', 'Admin\CursoController@index')->name('admin.cursos');
+    Route::get('/admin/cursos/adicionar', 'Admin\CursoController@adicionar')->name('admin.cursos.adicionar');
+    Route::post('/admin/cursos/salvar', 'Admin\CursoController@salvar')->name('admin.cursos.salvar');
+    Route::get('/admin/cursos/editar/{id}', 'Admin\CursoController@editar')->name('admin.cursos.editar');
+    Route::put('/admin/cursos/atualizar/{id}', 'Admin\CursoController@atualizar')->name('admin.cursos.atualizar');
+    Route::delete('/admin/cursos/{id}', 'Admin\CursoController@deletar')->name('admin.cursos.deletar');
 });

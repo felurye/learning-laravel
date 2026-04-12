@@ -1,24 +1,22 @@
 # Laravel
-/vendor/
-/node_modules/
-npm-debug.log
-yarn-error.log
+App/vendor/
+App/node_modules/
+App/public/hot
+App/public/storage
+App/bootstrap/cache/*
+!App/bootstrap/cache/.gitignore
 
 # Environment
-.env
-.env.backup
-.env.production
+App/.env
+App/.env.backup
+App/.env.production
 
 # Storage
-/storage/*.key
-/storage/logs/*
-!/storage/logs/.gitkeep
-
-# Bootstrap cache
-/bootstrap/cache/*
-!/bootstrap/cache/.gitkeep
-!/bootstrap/cache/packages.php
-!/bootstrap/cache/services.php
+App/storage/logs/*
+!App/storage/logs/.gitkeep
+App/storage/framework/cache/*
+App/storage/framework/sessions/*
+App/storage/framework/views/*
 
 # IDE
 .idea/
@@ -30,9 +28,3 @@ yarn-error.log
 # OS
 .DS_Store
 Thumbs.db
-
-# Compiled
-*.cache
-*.lock
-
-# Vendor

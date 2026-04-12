@@ -3,83 +3,70 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CursoRequest;
 use App\Curso;
+use Illuminate\Support\Str;
 
 class CursoController extends Controller
 {
     public function index()
     {
-      $registros = Curso::all();
-      return view('admin.cursos.index',compact('registros'));
+        $registros = Curso::all();
+        return view('admin.cursos.index', compact('registros'));
     }
+
     public function adicionar()
     {
-      return view('admin.cursos.adicionar');
+        return view('admin.cursos.adicionar');
     }
-    public function salvar(Request $req)
+
+    public function salvar(CursoRequest $req)
     {
-      $dados = $req->all();
+        $dados = $req->only(['titulo', 'descricao', 'valor']);
+        $dados['publicado'] = $req->boolean('publicado');
 
-      if(isset($dados['publicado'])){
-        $dados['publicado'] = 'sim';
-      }else{
-        $dados['publicado'] = 'nao';
-      }
+        if ($req->hasFile('imagem')) {
+            $dados['imagem'] = $this->moverImagem($req);
+        }
 
-      if($req->hasFile('imagem')){
-        $imagem = $req->file('imagem');
-        $num = rand(1111,9999);
-        $dir = "img/cursos/";
-        $ex = $imagem->guessClientExtension();
-        $nomeImagem = "imagem_".$num.".".$ex;
-        $imagem->move($dir,$nomeImagem);
-        $dados['imagem'] = $dir."/".$nomeImagem;
-      }
+        Curso::create($dados);
 
-      Curso::create($dados);
-
-      return redirect()->route('admin.cursos');
-
+        return redirect()->route('admin.cursos');
     }
 
     public function editar($id)
     {
-      $registro = Curso::find($id);
-      return view('admin.cursos.editar',compact('registro'));
+        $registro = Curso::findOrFail($id);
+        return view('admin.cursos.editar', compact('registro'));
     }
-    public function atualizar(Request $req, $id)
+
+    public function atualizar(CursoRequest $req, $id)
     {
-      $dados = $req->all();
+        $dados = $req->only(['titulo', 'descricao', 'valor']);
+        $dados['publicado'] = $req->boolean('publicado');
 
-      if(isset($dados['publicado'])){
-        $dados['publicado'] = 'sim';
-      }else{
-        $dados['publicado'] = 'nao';
-      }
+        if ($req->hasFile('imagem')) {
+            $dados['imagem'] = $this->moverImagem($req);
+        }
 
-      if($req->hasFile('imagem')){
-        $imagem = $req->file('imagem');
-        $num = rand(1111,9999);
-        $dir = "img/cursos/";
-        $ex = $imagem->guessClientExtension();
-        $nomeImagem = "imagem_".$num.".".$ex;
-        $imagem->move($dir,$nomeImagem);
-        $dados['imagem'] = $dir."/".$nomeImagem;
-      }
+        Curso::findOrFail($id)->update($dados);
 
-      Curso::find($id)->update($dados);
-
-      return redirect()->route('admin.cursos');
-
+        return redirect()->route('admin.cursos');
     }
 
     public function deletar($id)
     {
-      Curso::find($id)->delete();
-      return redirect()->route('admin.cursos');
+        Curso::findOrFail($id)->delete();
+        return redirect()->route('admin.cursos');
     }
 
+    private function moverImagem(Request $req): string
+    {
+        $imagem = $req->file('imagem');
+        $dir = 'img/cursos';
+        $nome = 'imagem_' . Str::uuid() . '.' . $imagem->guessClientExtension();
+        $imagem->move(public_path($dir), $nome);
+        return $dir . '/' . $nome;
+    }
 }
