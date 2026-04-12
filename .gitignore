@@ -3,6 +3,8 @@ App/vendor/
 App/node_modules/
 App/public/hot
 App/public/storage
+App/public/css/
+App/public/js/
 App/bootstrap/cache/*
 !App/bootstrap/cache/.gitignore
 
